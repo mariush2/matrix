@@ -5,12 +5,13 @@ let string_length;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   colorMode(HSB);
+  frameRate(40);
 
   for (var i = 0; i < windowWidth / size; i++) {
     let list = []
     let randomHeight = random(0, -800);
-    let randomSpeed = random(2, 4);
-    let randomColor = [100, 100, 100 - random(5, 20)]
+    let randomSpeed = random(2, 5);
+    let randomColor = [100, 100, 100 - random(5, 20)];
     string_length = 10 + parseInt(random(1, 5));
     for (var j = 0; j < string_length; j++) {
       list[j] = new Item(j);
@@ -33,15 +34,15 @@ function draw() {
   for (var i = 0; i < main.length; i++) {
     let current = main[i]
     for (var j = 0; j < current.length; j++) {
-      current[j].render();
       if (current[j].y > height + size) {
         current[j].y = -size;
       } else {
         current[j].y += current[j].speed;
       }
-      if (random(0, 1) < 0.01) {
+      if (random(0, 1) < 0.001) {
         current[j].ch = randomChar();
       }
+      current[j].render();
     }
   }
 }
