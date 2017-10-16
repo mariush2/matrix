@@ -1,6 +1,11 @@
-let size = 23;
+let size = 22;
 let main = [];
 let string_length;
+let charSet = []
+
+for (let k = 0; k < 100; k++) {
+  charSet[k] = 19984 + k;
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -11,7 +16,6 @@ function setup() {
     let list = []
     let randomHeight = random(0, -800);
     let randomSpeed = random(2, 5);
-    let randomColor = [100, 100, 100 - random(5, 20)];
     string_length = 10 + parseInt(random(1, 5));
     for (var j = 0; j < string_length; j++) {
       list[j] = new Item(j);
@@ -21,7 +25,7 @@ function setup() {
       if (j == string_length - 1) {
         list[j].color = [100, 60, 100];
       } else {
-        list[j].color = randomColor;
+        list[j].color = [100, 100, 100 - random(5, 20)];
       }
     }
     main[i] = list;
@@ -32,7 +36,8 @@ function setup() {
 function draw() {
   background(0);
   for (var i = 0; i < main.length; i++) {
-    let current = main[i]
+    let current = main[i];
+
     for (var j = 0; j < current.length; j++) {
       if (current[j].y > height + size) {
         current[j].y = -size;
@@ -40,7 +45,7 @@ function draw() {
         current[j].y += current[j].speed;
       }
       if (random(0, 1) < 0.001) {
-        current[j].ch = randomChar();
+        current[j].ch = char(charSet[j]);
       }
       current[j].render();
     }
@@ -65,8 +70,4 @@ function Item(j) {
     fill(this.color);
     text(this.ch, this.x, this.y);
   }
-}
-
-function randomChar() {
-  return char(19984 + random(1, 100));
 }
