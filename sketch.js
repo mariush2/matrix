@@ -12,37 +12,20 @@ function setup() {
   colorMode(HSB);
   frameRate(40);
 
-  for (var i = 0; i < windowWidth / size; i++) {
-    let list = []
-    let randomHeight = random(0, -800);
-    let randomSpeed = random(2, 5);
-    string_length = 10 + parseInt(random(1, 5));
-    for (var j = 0; j < string_length; j++) {
-      list[j] = new Item(j);
-      list[j].x = i * size;
-      list[j].y = randomHeight + j * size;
-      list[j].speed = randomSpeed;
-      if (j == string_length - 1) {
-        list[j].color = [100, 60, 100];
-      } else {
-        list[j].color = [100, 100, 100 - random(5, 20)];
-      }
-    }
-    main[i] = list;
-  }
-
+  init();
+  //init();
 }
 
 function draw() {
   background(0);
   for (var i = 0; i < main.length; i++) {
     let current = main[i];
-
     for (var j = 0; j < current.length; j++) {
       if (current[j].y > height + size) {
         current[j].y = -size;
       } else {
-        current[j].y += current[j].speed;
+        let speed = map(mouseX, 0, width, 1, current[j].speed);
+        current[j].y += speed;
       }
       if (random(0, 1) < 0.001) {
         current[j].ch = char(charSet[j]);
@@ -55,11 +38,6 @@ function draw() {
 function Item(j) {
   this.y = j * size;
   this.ch = char(19984 + random(1, 100));
-  if (j == string_length - 1) {
-    this.last = true;
-  } else {
-    this.last = false;
-  }
   this.render = function() {
     if (this.last) {
       textStyle(BOLD);
@@ -69,5 +47,27 @@ function Item(j) {
     textSize(size);
     fill(this.color);
     text(this.ch, this.x, this.y);
+  }
+}
+
+function init() {
+  for (var i = 0; i < windowWidth / size; i++) {
+    let list = []
+    let randomHeight = random(0, -800);
+    let randomSpeed = random(3, 7);
+    string_length = 10 + parseInt(random(1, 5));
+    for (var j = 0; j < string_length; j++) {
+      list[j] = new Item(j);
+      list[j].x = i * size;
+      list[j].y = randomHeight + j * size;
+      list[j].speed = randomSpeed;
+      if (j == string_length - 1) {
+        list[j].color = [100, 60, 100];
+        list[j].last = true;
+      } else {
+        list[j].color = [100, 100, 100 - random(5, 20)];
+      }
+    }
+    main[i] = list;
   }
 }
