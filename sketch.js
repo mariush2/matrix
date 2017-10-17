@@ -11,8 +11,7 @@ for (let k = 0; k < 100; k++) {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   colorMode(HSB);
-  size = round(width / 17, 1);
-  console.log(size);
+  size = round(width / 37, 1);
   frameRate(40);
 
   init();
@@ -60,7 +59,7 @@ function Item(j) {
 }
 
 function init() {
-  for (var i = 0; i < windowWidth / size; i++) {
+  for (var i = 0; i < width / size; i++) {
     let list = []
     let randomHeight = random(0, -800);
     let randomSpeed1 = random(3, 5);
