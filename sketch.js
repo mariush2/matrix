@@ -1,4 +1,4 @@
-let size = 32;
+let size = 0;
 let main = [];
 let string_length;
 let charSet = []
@@ -11,6 +11,8 @@ for (let k = 0; k < 100; k++) {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   colorMode(HSB);
+  size = round(width / 17, 1);
+  console.log(size);
   frameRate(40);
 
   init();
